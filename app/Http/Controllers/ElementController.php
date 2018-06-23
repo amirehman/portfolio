@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Element;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use App\Http\Resources\ElementResource;
+
 
 class ElementController extends Controller
 {
@@ -14,7 +17,7 @@ class ElementController extends Controller
      */
     public function index()
     {
-        //
+        return ElementResource::collection($elements = Element::latest()->get());
     }
 
     /**
@@ -35,7 +38,15 @@ class ElementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $element = new Element;
+        $element->name = $request->name;
+        $element->slug = str_slug($request->slug);
+        $element->link = $request->link;
+        
+        $element->save();
+
+        return response('Element Created', Response::HTTP_CREATED);
+
     }
 
     /**
@@ -46,7 +57,7 @@ class ElementController extends Controller
      */
     public function show(Element $element)
     {
-        //
+        return new ElementResource($element);
     }
 
     /**
@@ -69,7 +80,12 @@ class ElementController extends Controller
      */
     public function update(Request $request, Element $element)
     {
-        //
+        $element->update([
+            'name' => $request->name,
+            'slug' => str_slug($request->name),
+            'link' => $request->link
+        ]);
+        return response('update', Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -80,6 +96,7 @@ class ElementController extends Controller
      */
     public function destroy(Element $element)
     {
-        //
+        $element->delete();
+        return response('null', Response::HTTP_NO_CONTENT);
     }
 }

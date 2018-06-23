@@ -15,7 +15,7 @@ class Project extends Model
 
     public function elements () 
     {
-        return $this->belongsToMany(Element::class);
+        return $this->belongsToMany(Element::class, 'element_project');
     }
 
     public function pages () 
@@ -24,7 +24,7 @@ class Project extends Model
     }
 
     public function getPathAttribute () {
-        
+        return asset("api/projects/$this->slug");
     }
 
 

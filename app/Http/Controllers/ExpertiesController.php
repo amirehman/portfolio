@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Experties;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Http\Resources\ExpertiesResource;
 
 class ExpertiesController extends Controller
 {
@@ -14,7 +16,7 @@ class ExpertiesController extends Controller
      */
     public function index()
     {
-        //
+        return ExpertiesResource::collection(Experties::all());
     }
 
     /**
@@ -35,7 +37,18 @@ class ExpertiesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'type' => 'required'
+        ]);
+
+        $experte = new Experties;
+        $experte->name = $request->name;
+        $experte->type = $request->type;
+        $experte->link = $request->link;
+        $experte->save();
+        return response('Experties Added', Response::HTTP_ACCEPTED);
+
     }
 
     /**
@@ -46,7 +59,7 @@ class ExpertiesController extends Controller
      */
     public function show(Experties $experties)
     {
-        //
+        return new ExpertiesResource($experties);
     }
 
     /**
@@ -67,9 +80,15 @@ class ExpertiesController extends Controller
      * @param  \App\Experties  $experties
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Experties $experties)
+    public function update(Request $request, $experties)
     {
-        //
+        $experties = Experties::FindOrFail($experties);
+        $experties->name = $request->name;
+        $experties->type = $request->type;
+        $experties->link = $request->link;
+        $experties->save();
+
+        return response('Expertie Updated', Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -78,8 +97,9 @@ class ExpertiesController extends Controller
      * @param  \App\Experties  $experties
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Experties $experties)
+    public function destroy($experties)
     {
-        //
+        Experties::Find($experties)->delete();
+        return response('null', Response::HTTP_NO_CONTENT);
     }
 }

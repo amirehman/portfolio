@@ -13,10 +13,10 @@ class CreateProjectElementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_elements', function (Blueprint $table) {
+        Schema::create('element_project', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('project_id');
             $table->integer('element_id');
+            $table->integer('project_id');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateProjectElementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_elements');
+        Schema::dropIfExists('element_project');
     }
 }

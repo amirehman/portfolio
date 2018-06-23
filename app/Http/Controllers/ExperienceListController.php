@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Experience;
 use App\ExperienceList;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Http\Resources\ExperienceListResource;
+
 
 class ExperienceListController extends Controller
 {
@@ -12,9 +16,9 @@ class ExperienceListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Experience $experience)
     {
-        //
+        return ExperienceListResource::collection($experience->items);
     }
 
     /**
@@ -33,9 +37,19 @@ class ExperienceListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'item' => 'required'
+        ]);
+
+        $item = new ExperienceList;
+
+        $item->item = $request->item;
+        $item->experience_id = $id;
+        $item->save();
+        return response('Item Added', Response::HTTP_CREATED);
+
     }
 
     /**
@@ -67,9 +81,19 @@ class ExperienceListController extends Controller
      * @param  \App\ExperienceList  $experienceList
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ExperienceList $experienceList)
+    public function update(Request $request, $experience, $experienceList)
     {
-        //
+        
+        $this->validate($request, [
+            'item' => 'required'
+        ]);
+
+
+        $experienceList = ExperienceList::FindOrFail($experienceList);
+        $experienceList->item = $request->item;
+        $experienceList->save();
+
+        return response('Item Updated', Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -78,8 +102,9 @@ class ExperienceListController extends Controller
      * @param  \App\ExperienceList  $experienceList
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ExperienceList $experienceList)
+    public function destroy($experience, $item)
     {
-        //
+        ExperienceList::Find($item)->delete();
+        return response('null', Response::HTTP_NO_CONTENT);
     }
 }

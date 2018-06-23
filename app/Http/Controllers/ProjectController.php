@@ -72,7 +72,8 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $project->update($request->all());
+        return response('update', Response::HTTP_ACCEPTED);
     }
 
     /**

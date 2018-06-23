@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\About;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Http\Resources\AboutResource;
+
 
 class AboutController extends Controller
 {
@@ -14,7 +17,8 @@ class AboutController extends Controller
      */
     public function index()
     {
-        //
+        $about = About::get()->first();
+        return new AboutResource($about);
     }
 
     /**
@@ -69,7 +73,15 @@ class AboutController extends Controller
      */
     public function update(Request $request, About $about)
     {
-        //
+        $about->name = $request->name;
+        $about->email = $request->email;
+        $about->bio = $request->bio;
+
+        $about->image = $request->image;
+        
+        $about->save();
+
+        return response('Bio Updated', Response::HTTP_CREATED);
     }
 
     /**

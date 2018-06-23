@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Education;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Http\Resources\EducationResource;
+
 
 class EducationController extends Controller
 {
@@ -14,7 +17,7 @@ class EducationController extends Controller
      */
     public function index()
     {
-        //
+        return EducationResource::collection(Education::all());
     }
 
     /**
@@ -35,7 +38,8 @@ class EducationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Education::create($request->all());
+        return response('Education Added', Response::HTTP_CREATED);
     }
 
     /**
@@ -46,7 +50,7 @@ class EducationController extends Controller
      */
     public function show(Education $education)
     {
-        //
+        return new EducationResource($education);
     }
 
     /**
@@ -69,7 +73,14 @@ class EducationController extends Controller
      */
     public function update(Request $request, Education $education)
     {
-        //
+        $education->update([
+            'title' => $request->title,
+            'college' => $request->college,
+            'college_link' => $request->college_link,
+            'detail' => $request->detail,
+            'datee' => $request->datee
+        ]);
+        return response('Education Updated', Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -80,6 +91,7 @@ class EducationController extends Controller
      */
     public function destroy(Education $education)
     {
-        //
+        $education->delete();
+        return response('null', Response::HTTP_NO_CONTENT);
     }
 }

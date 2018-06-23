@@ -12,4 +12,15 @@ class Experience extends Model
         return $this->hasMany(ExperienceList::class);
     }
 
+    protected $fillable = [
+        'title', 
+        'company', 
+        'company_link',
+        'start_date',
+        'end_date',
+        'detail'
+    ];
+
+
+
 }
