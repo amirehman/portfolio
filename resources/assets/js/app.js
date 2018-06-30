@@ -22,5 +22,5 @@ import router from './Router/router.js'
 
 const app = new Vue({
     el: '#app',
-    router
+        router
 });

@@ -1,14 +1,19 @@
 <template>
-    <b-tabs>
-        <b-tab-item label="Pictures" icon="google-photos"></b-tab-item>
-        <b-tab-item label="Music" icon="library-music"></b-tab-item>
-        <b-tab-item label="Videos" icon="video"></b-tab-item>
-    </b-tabs>
+    <div>
+         <router-link to="/me/login">Go to login</router-link>
+    
+        <router-view></router-view>
+    </div>    
 </template>
 
 <script>
-export default {
 
+    import login from '../components/Auth/Login'
+
+export default {
+    components: {
+        login
+    }
 }
 </script>
 
