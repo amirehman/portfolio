@@ -10,6 +10,10 @@ use App\Http\Resources\GeneralResource;
 
 class GeneralController extends Controller
 {
+
+     
+
+
     /**
      * Display a listing of the resource.
      *
