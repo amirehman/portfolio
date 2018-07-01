@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('app');
-});
+Route::view('/', 'app');
+Route::view('/{any}', 'app');
+Route::view('/{any}/{any1}', 'app');

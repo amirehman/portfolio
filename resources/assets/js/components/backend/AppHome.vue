@@ -1,14 +1,12 @@
 <template>
-    <div>
-         <router-link to="/me/login">Go to login</router-link>
-    
+    <div class="m-t-30">
         <router-view></router-view>
     </div>    
 </template>
 
 <script>
 
-    import login from '../components/Auth/Login'
+    import login from '../../components/Auth/Login'
 
 export default {
     components: {

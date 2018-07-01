@@ -10,12 +10,21 @@
 
 <body>
 
+
+
+
     <div class="container">
-            <div id="app">
-              {{-- @yield('content') --}}
+      <div id="app">
+        <div class="columns">
+            <div class="column is-3">
+              <side-nav></side-nav>
+            </div>
+            <div class="column is-9">
               <app-home></app-home>
             </div>
-    </div>
+        </div>
+      </div>      
+    </div>      
 
 
     <script src="{{ asset('js/app.js') }}"></script>

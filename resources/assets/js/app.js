@@ -18,7 +18,8 @@ Vue.use(Buefy);
 
 import router from './Router/router.js'
 
- Vue.component('AppHome', require('./components/AppHome.vue'));
+ Vue.component('AppHome', require('./components/backend/AppHome.vue'));
+ Vue.component('SideNav', require('./components/backend/SideNav.vue'));
 
 const app = new Vue({
     el: '#app',
