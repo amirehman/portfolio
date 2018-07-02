@@ -36,20 +36,20 @@
 </template>
 
 <script>
+
+
 export default {
         data() {
             return {
                 form: {
                     email: 'hi@amirrehman.com',
-                    password: 'thisis'
+                    password: 'secret'
                 }
             }
         },
-        methods: {
-            login () {
-                axios.post('/api/auth/login', this.form)
-                .then(res => console.log(res.data))
-                .catch(error => console.log(error.response.data))
+        methods:{
+            login(){
+                User.login(this.form)
             }
         }
     }

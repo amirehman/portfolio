@@ -11,10 +11,13 @@ window.Vue = require('vue');
 
 import Buefy from 'buefy';
 
+import User from './Helpers/User'
+window.User = User
 
 Vue.use(Buefy);
 
 
+User.hasToken();
 
 import router from './Router/router.js'
 
