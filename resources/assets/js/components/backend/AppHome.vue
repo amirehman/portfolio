@@ -7,7 +7,6 @@
 <script>
 
     import login from '../../components/Auth/Login'
-
 export default {
     components: {
         login

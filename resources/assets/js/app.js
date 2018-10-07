@@ -1,30 +1,29 @@
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
 
-window.Vue = require('vue');
 
-import Buefy from 'buefy';
-
-import User from './Helpers/User'
-window.User = User
-
-Vue.use(Buefy);
-
-
-User.hasToken();
-
+import Buefy from 'buefy'
+import Vuex from 'vuex'
+import storeData from './store.js'
+import {initialize} from './helpers/general';
 import router from './Router/router.js'
 
+
+window.Vue = require('vue');
+Vue.use(Buefy);
+
+Vue.use(Vuex);
+
+const store = new Vuex.Store(storeData);
+initialize(store, router);
+
+
+
+
  Vue.component('AppHome', require('./components/backend/AppHome.vue'));
- Vue.component('SideNav', require('./components/backend/SideNav.vue'));
+ Vue.component('DashMenu', require('./components/backend/DasbhoardMenu.vue')); 
 
 const app = new Vue({
-    el: '#app',
-        router
+    el: '#app', 
+        router,
+        store
 });

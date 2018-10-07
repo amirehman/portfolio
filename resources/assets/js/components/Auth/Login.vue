@@ -4,7 +4,7 @@
                 <div class="column is-4">
                     <p class="subtitle has-text-grey">Login to proceed....</p>
                     <div class="box is-radiusless">
-                        <form @submit.prevent="login">
+                        <form @submit.prevent="authenticate">
                            
                             <b-field>
                                 <b-input 
@@ -36,24 +36,39 @@
 </template>
 
 <script>
-
-
-export default {
+    import {login} from '../../helpers/auth';
+    export default {
+        name: "login",
         data() {
             return {
                 form: {
-                    email: 'hi@amirrehman.com',
-                    password: 'secret'
-                }
+                    email: '',
+                    password: ''
+                },
+                error: null
+            };
+        },
+        methods: {
+            authenticate() {
+                this.$store.dispatch('login');
+                login(this.$data.form)
+                    .then((res) => {
+                        this.$store.commit("loginSuccess", res);
+                        this.$router.push({path: '/me/dashboard'});
+                    })
+                    .catch((error) => {
+                        this.$store.commit("loginFailed", {error});
+                    });
             }
         },
-        methods:{
-            login(){
-                User.login(this.form)
+        computed: {
+            authError() {
+                return this.$store.getters.authError;
             }
         }
     }
 </script>
+
 
 <style>
 

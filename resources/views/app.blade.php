@@ -16,10 +16,7 @@
     <div class="container">
       <div id="app">
         <div class="columns">
-            <div class="column is-3">
-              <side-nav></side-nav>
-            </div>
-            <div class="column is-9">
+            <div class="column is-12">
               <app-home></app-home>
             </div>
         </div>

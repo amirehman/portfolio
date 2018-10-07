@@ -1,0 +1,8 @@
+.dashboard-menu {
+    a {
+        text-decoration: none!important;
+        &:hover {
+            color: $red;
+        }
+    }
+}
